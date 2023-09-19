@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import RegisterDetails from "./components/FrontendComponents/RegisterDetails";
 import LoginDetails from "./components/FrontendComponents/LoginDetails";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
