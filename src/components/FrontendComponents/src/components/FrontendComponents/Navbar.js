@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,10 +8,10 @@ function Navbar(props) {
     <div>
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
         <div className="container-md">
-          <Link className="navbar-brand" to="/">
+          <a className="navbar-brand" href="/">
             <span className="text-warning">M</span>
             ern
-          </Link>
+          </a>
 
           <div>
             <button
@@ -30,19 +29,19 @@ function Navbar(props) {
           >
             <ul className="navbar-nav">
               <li className="navbar-item">
-                <Link to="/" className="nav-link">
+                <a href="/" className="nav-link">
                   Home
-                </Link>
+                </a>
               </li>
               <li className="navbar-item">
-                <Link to="/register" className="nav-link">
+                <a href="/register" className="nav-link">
                   Register
-                </Link>
+                </a>
               </li>
               <li className="navbar-item">
-                <Link to="/login" className="nav-link">
+                <a href="/" className="nav-link">
                   Login
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

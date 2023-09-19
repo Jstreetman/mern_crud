@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Footer() {
+function FormFooter() {
   return (
-    <div className="position-absolute w-100">
+    <div className="fixed-bottom w-100">
       <footer className="bg-dark">
         <div className="container">
           <p className="card-text text-light text-center fs-3">
@@ -13,5 +13,4 @@ function Footer() {
     </div>
   );
 }
-
-export default Footer;
+export default FormFooter;

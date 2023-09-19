@@ -15,19 +15,3 @@ body::before {
   height: 60px;
   background-color: #212529;
 }
-
-body {
-  background-color: whitesmoke;
-}
-
-.a-con {
-  color: white;
-  background-color: black;
-}
-
-.a-con:hover {
-  background-color: white;
-  color: black;
-  scale: 0.96;
-  transition: all 0.3s ease-in-out;
-}
