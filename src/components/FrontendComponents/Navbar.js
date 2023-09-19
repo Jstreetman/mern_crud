@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Showcase from "./Showcase";
 
-function Navbar() {
+function Navbar(props) {
   return (
     <div>
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
@@ -33,7 +34,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="navbar-item">
-                <a href="/" className="nav-link">
+                <a href="/register" className="nav-link">
                   Register
                 </a>
               </li>
@@ -46,7 +47,6 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <Showcase />
     </div>
   );
 }
