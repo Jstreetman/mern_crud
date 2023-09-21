@@ -1,0 +1,36 @@
+.i-con {
+  font-size: 32px;
+
+}
+
+.a-con {
+  color: white;
+}
+
+.a-con:hover {
+  background-color: white;
+  color: black;
+  scale: 0.96;
+  transition: all 0.3s ease-in-out;
+}
+
+.p-con {
+  height: 350px;
+  width: 350px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .p-con {
+    animation: p-con-spin infinite 20s linear;
+  }
+}
+
+@keyframes p-con-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

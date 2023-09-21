@@ -1,3 +1,4 @@
 # Updates
 
-Added React Router Dom
+Added config folder
+Fixed Issues with register
