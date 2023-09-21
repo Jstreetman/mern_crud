@@ -7,7 +7,18 @@ const userRoutes = require("./routes/userRoutes"); // Import the user route file
 
 // Initialize Express
 const app = express();
+// Add body parsing middleware
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
+// Use CORS middleware
 app.use(cors());
+
+// app.disable("x-powered-by");
+// app.disable("connection");
+// app.disable("date");
+// app.disable("transfer-encoding");
+// app.disable("x-powered-by");
 
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/Jsmern", {
@@ -25,10 +36,10 @@ db.once("open", () => {
 });
 
 // Use the userRoutes for handling user-related routes
-app.use("/api/users/", userRoutes);
+app.use("/api/users", userRoutes);
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

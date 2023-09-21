@@ -8,8 +8,8 @@ function Showcase() {
   return (
     <div>
       <section className="bg-dark  text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-        <div class="container">
-          <div class="d-sm-flex align-items-center justify-content-between">
+        <div className="container">
+          <div className="d-sm-flex align-items-center justify-content-between">
             <div>
               <h1>
                 <span className="text-warning">J</span>

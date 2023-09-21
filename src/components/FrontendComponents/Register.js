@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 //
 
 function Register() {
@@ -22,18 +23,14 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/users/signup", {
-        method: "POST",
+      const response = await axios.post("/api/users/signup", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.status === 201) {
-        setMessage(data.message);
+        setMessage("Registration successful!");
         // Clear form fields if registration is successful
         setFormData({
           username: "",
@@ -41,14 +38,12 @@ function Register() {
           password: "",
         });
       } else {
-        setMessage(data.message);
+        setMessage(response.data.message);
       }
     } catch (error) {
       console.error("Registration error:", error);
     }
   };
-
-  // ...
 
   return (
     <section className="p-5 position-absolute top-50 start-50 translate-middle">

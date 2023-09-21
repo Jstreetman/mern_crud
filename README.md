@@ -17,3 +17,7 @@ NodeJS : A server-side JavaScript runtime environment that allows you to run Jav
 
 npm install
 npm start
+
+## FYI
+
+NOW TO START BOTH THE FRONTEND AND BACKEND YOU MUST RUN npm start in a separate terminal and in the other terminal node server.js or nodemon server.js because both are running on same port.
