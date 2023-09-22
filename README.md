@@ -1,4 +1,4 @@
-# MERN Version 1.0.2
+# MERN Version 1.0.3
 
 # This is a MERN stack example
 
@@ -18,3 +18,8 @@ NodeJS : A server-side JavaScript runtime environment that allows you to run Jav
 
 npm install
 npm start
+
+# What's New In 1.0.3
+
+Added Backend for login component
+removed dockerfiles

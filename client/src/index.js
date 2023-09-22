@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import App from "./components/App";
 import RegisterDetails from "./components/RegisterDetails";
 import LoginDetails from "./components/LoginDetails";
+import News from "./components/News";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginDetails />,
+  },
+  {
+    path: "/news",
+    element: <News />,
   },
 ]);
 

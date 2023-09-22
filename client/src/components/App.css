@@ -9,12 +9,12 @@
 }
 
 
-body::before {
+/* body::before {
   display: block;
   content: '';
   height: 60px;
   background-color: #212529;
-}
+} */
 
 body {
   background-color: whitesmoke;

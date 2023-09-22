@@ -49,7 +49,7 @@ function Register() {
   };
 
   return (
-    <Container className="p-5" text>
+    <Container className="p-5 my-5" text>
       <Form onSubmit={handleSubmit} error={!!message}>
         <Header as="h1" textAlign="center">
           Register

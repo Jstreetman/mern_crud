@@ -1,33 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const path = require("path");
+const jwt = require("jsonwebtoken"); // You'll need jsonwebtoken for user authentication
 const { body, validationResult } = require("express-validator"); // Import express-validator
 
 const User = require("../models/user");
-const app = express();
 
-// Serve static files from the "build" directory
-app.use(express.static(path.join(__dirname, "build")));
-
-// Your API routes go here
-
-// Catch-all route to serve the React app
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
-// router.get("/", (req, res) => {
-//   User.find({})
-//     .then((result) => {
-//       res.json(result);
-//     })
-//     .catch((err) => {
-//       res
-//         .status(500)
-//         .json({ success: false, msg: `Something went wrong. ${err}` });
-//     });
-// });
 // Registration route with password validation
 router.post(
   "/signup",
@@ -75,6 +53,49 @@ router.post(
       await newUser.save();
 
       res.status(201).json({ message: "Registration successful!" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  }
+);
+
+router.post(
+  "/signin",
+  [
+    body("email").isEmail().withMessage("Invalid email address"),
+    body("password").notEmpty().withMessage("Password is required"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      // Check if the user with the provided email exists in the database
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      // Compare the provided password with the stored hashed password
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      // If credentials are valid, create and sign a JSON Web Token (JWT) for authentication
+      const token = jwt.sign({ userId: user._id }, "Jmills22", {
+        expiresIn: "1h",
+      });
+
+      res.status(200).json({ token });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
