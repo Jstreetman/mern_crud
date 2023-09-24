@@ -1,10 +1,32 @@
 const express = require("express");
+const session = require("express-session");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); // You'll need jsonwebtoken for user authentication
 const { body, validationResult } = require("express-validator"); // Import express-validator
-
 const User = require("../models/user");
+const app = express();
+
+// Configure express-session
+router.use(
+  session({
+    secret: "johnnyaframe", // Replace with key of choice
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+const requireLogin = (req, res, next) => {
+  if (req.session.user) {
+    // User is logged in, proceed to the next middleware or route handler
+    next();
+  } else {
+    // User is not logged in, redirect them to the login page
+    res.redirect("/login"); // Change the route to your login page
+  }
+};
+
+router.get("/news", requireLogin);
 
 // Registration route with password validation
 router.post(
@@ -60,6 +82,8 @@ router.post(
   }
 );
 
+// ...
+
 router.post(
   "/signin",
   [
@@ -90,17 +114,22 @@ router.post(
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
-      // If credentials are valid, create and sign a JSON Web Token (JWT) for authentication
-      const token = jwt.sign({ userId: user._id }, "Jmills22", {
-        expiresIn: "1h",
-      });
+      // If credentials are valid, store user information in the session
+      req.session.userId = user._id;
 
-      res.status(200).json({ token });
+      // Respond with a success message or the user data
+      res.status(200).json({ message: "Login successful", user });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
     }
   }
 );
+
+app.get("/news", (req, res) => {
+  if (!req.session.userId) {
+    res.redirect("/login");
+  }
+});
 
 module.exports = router;

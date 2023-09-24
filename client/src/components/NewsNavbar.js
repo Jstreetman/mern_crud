@@ -1,34 +1,46 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
-export default class NewsNavbar extends Component {
-  state = {};
+export default function NewsNavbar() {
+  const navigate = useNavigate(); // Access the navigate function
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  const [activeItem, setActiveItem] = React.useState(null);
 
-  render() {
-    const { activeItem } = this.state;
+  const handleItemClick = (e, { name }) => {
+    setActiveItem(name);
+    if (name === "logout") {
+      // Call the logout function when "Logout" is clicked
+      handleLogout();
+    }
+  };
 
-    return (
-      <Menu className="navbar d-flex justify-content-end bg-dark rounded-0">
-        <Menu.Item
-          className="text-light"
-          name="profile"
-          active={activeItem === "reviews"}
-          onClick={this.handleItemClick}
-        >
-          Profile
-        </Menu.Item>
+  const handleLogout = () => {
+    // Clear the authentication token and user object
+    localStorage.removeItem("token");
+    // Redirect to the login page using navigate
+    navigate("/login");
+  };
 
-        <Menu.Item
-          className="text-light"
-          name="logout"
-          active={activeItem === "upcomingEvents"}
-          onClick={this.handleItemClick}
-        >
-          Logout
-        </Menu.Item>
-      </Menu>
-    );
-  }
+  return (
+    <Menu className="navbar d-flex justify-content-end bg-dark rounded-0">
+      <Menu.Item
+        className="text-light"
+        name="profile"
+        active={activeItem === "Profile"}
+        onClick={handleItemClick}
+      >
+        Profile
+      </Menu.Item>
+
+      <Menu.Item
+        className="text-light"
+        name="logout"
+        active={activeItem === "Logout"}
+        onClick={() => handleItemClick(null, { name: "logout" })}
+      >
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
 }

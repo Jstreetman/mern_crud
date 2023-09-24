@@ -42,6 +42,7 @@ app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
   res.status(400).json({ err: err });
 });
+
 // Use the userRoutes for handling user-related routes
 app.use("/api/users", require("./routes/userRoutes"));
 
