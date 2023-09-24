@@ -1,4 +1,4 @@
-# MERN Version 1.0.5
+# MERN Version 1.0.6
 
 # This is a MERN stack example
 
@@ -21,4 +21,4 @@ npm start
 
 # What's New In 1.0.5
 
-Added Some Frontend Design For News Component
+Added Backend For Create Post

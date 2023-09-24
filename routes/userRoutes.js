@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); // You'll need jsonwebtoken for user authentication
 const { body, validationResult } = require("express-validator"); // Import express-validator
 const User = require("../models/user");
+const Post = require("../models/post");
 const app = express();
 
 // Configure express-session
@@ -27,6 +28,28 @@ const requireLogin = (req, res, next) => {
 };
 
 router.get("/news", requireLogin);
+
+//Create Post Route
+
+router.post("/create", async (req, res) => {
+  try {
+    // Extract post data from the request body
+    const { news } = req.body;
+
+    // Create a new post
+    const newPost = new Post({
+      news,
+    });
+
+    // Save the post to the database
+    await newPost.save(); // Use await to wait for the save operation to complete
+
+    res.status(201).json({ message: "Post successful!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Registration route with password validation
 router.post(
