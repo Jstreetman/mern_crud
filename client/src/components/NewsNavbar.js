@@ -11,6 +11,7 @@ export default function NewsNavbar() {
     setActiveItem(name);
     if (name === "logout") {
       // Call the logout function when "Logout" is clicked
+
       handleLogout();
     }
   };
