@@ -114,7 +114,18 @@ router.post(
   }
 );
 
-// ...
+// Add a route to fetch posts
+router.get("/posts", requireLogin, async (req, res) => {
+  try {
+    // Fetch all posts from the database
+    const posts = await Post.find();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 router.post(
   "/signin",
