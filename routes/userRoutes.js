@@ -127,6 +127,75 @@ router.get("/posts", requireLogin, async (req, res) => {
   }
 });
 
+// Update Post Route
+// Update Post Route (Change the HTTP method to PUT)
+router.put("/posts/update/:postId", requireLogin, async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { news } = req.body;
+    const username = req.session.username;
+    const email = req.session.email;
+
+    // Check if the post with the given postId exists
+    console.log("Updating post with Id", postId);
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Check if the user is the owner of the post (you can add more checks as needed)
+    if (post.username !== username || post.email !== email) {
+      return res
+        .status(403)
+        .json({ message: "You don't have permission to update this post" });
+    }
+
+    // Update the post content
+    post.news = news;
+    await post.save();
+    // await Post.updateOne({ _id: postId });
+
+    res.status(200).json({ message: "Post updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Delete Post Route
+router.delete("/posts/:postId", requireLogin, async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const username = req.session.username;
+    const email = req.session.email;
+
+    console.log("Deleting post with ID:", postId);
+
+    // Check if the post with the given postId exists
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Check if the user is the owner of the post (you can add more checks as needed)
+    if (post.username !== username || post.email !== email) {
+      return res
+        .status(403)
+        .json({ message: "You don't have permission to delete this post" });
+    }
+
+    // Delete the post
+    await Post.deleteOne({ _id: postId });
+
+    res.status(200).json({ message: "Post deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 router.post(
   "/signin",
   [
@@ -172,7 +241,7 @@ router.post(
 );
 
 app.get("/news", (req, res) => {
-  if (!req.session.userId) {
+  if (!req.session.user) {
     res.redirect("/login");
   }
 });

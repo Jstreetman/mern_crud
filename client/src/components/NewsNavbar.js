@@ -27,15 +27,6 @@ export default function NewsNavbar() {
     <Menu className="navbar d-flex justify-content-end bg-dark rounded-0">
       <Menu.Item
         className="text-light"
-        name="profile"
-        active={activeItem === "Profile"}
-        onClick={handleItemClick}
-      >
-        Profile
-      </Menu.Item>
-
-      <Menu.Item
-        className="text-light"
         name="logout"
         active={activeItem === "Logout"}
         onClick={() => handleItemClick(null, { name: "logout" })}
