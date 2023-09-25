@@ -21,4 +21,4 @@ npm start
 
 # What's New In 1.0.7
 
-Added Backend For Create Post
+Updated Schema
