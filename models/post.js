@@ -1,10 +1,15 @@
-//require mongoose
 const mongoose = require("mongoose");
-
-//create Schema
 
 const postSchema = new mongoose.Schema({
   news: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
   },

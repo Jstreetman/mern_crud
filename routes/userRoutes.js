@@ -33,16 +33,25 @@ router.get("/news", requireLogin);
 
 router.post("/create", async (req, res) => {
   try {
+    if (!req.session.user) {
+      return res.status(401).json({ message: "User is not authenticated" });
+    }
+
     // Extract post data from the request body
     const { news } = req.body;
+    // const userId = req.session.user._id; // Get the user's ID from the session
+    const username = req.session.username;
+    const email = req.session.email;
 
-    // Create a new post
+    // Create a new post with the associated userId
     const newPost = new Post({
       news,
+      username,
+      email,
     });
 
     // Save the post to the database
-    await newPost.save(); // Use await to wait for the save operation to complete
+    await newPost.save();
 
     res.status(201).json({ message: "Post successful!" });
   } catch (error) {
@@ -138,7 +147,9 @@ router.post(
       }
 
       // If credentials are valid, store user information in the session
-      req.session.userId = user._id;
+      req.session.user = user; // Store the entire user object in the session
+      req.session.username = user.username; // Store the username in the session
+      req.session.email = user.email;
 
       // Respond with a success message or the user data
       res.status(200).json({ message: "Login successful", user });

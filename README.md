@@ -1,4 +1,4 @@
-# MERN Version 1.0.6
+# MERN Version 1.0.7
 
 # This is a MERN stack example
 
@@ -19,6 +19,6 @@ NodeJS : A server-side JavaScript runtime environment that allows you to run Jav
 npm install
 npm start
 
-# What's New In 1.0.5
+# What's New In 1.0.7
 
 Added Backend For Create Post

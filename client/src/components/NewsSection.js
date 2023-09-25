@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Header, Segment, Form, Button } from "semantic-ui-react";
 import axios from "axios";
@@ -9,6 +9,7 @@ function NewsSection() {
     news: "",
   });
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null); // Store the user data
 
   const navigate = useNavigate(); // Use useNavigate to handle navigation
 
@@ -16,6 +17,16 @@ function NewsSection() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  useEffect(() => {
+    // Fetch the user data from the API
+    fetch("/api/users")
+      .then((response) => response.json())
+      .then((userData) => setUser(userData))
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +53,14 @@ function NewsSection() {
       console.error("Create error:", error);
     }
   };
+
   return (
     <Container className="p-5">
       <Header as="h2">
-        <Segment>Create Post</Segment>
+        <Segment>
+          {/* Display the username */}
+          {user && `Welcome, ${user.username}`} Create Post
+        </Segment>
       </Header>
       <Form onSubmit={handleSubmit} error={!!message}>
         <Form.Group>
